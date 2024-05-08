@@ -3,6 +3,8 @@
 #include <utility>
 #include <iomanip>
 #include <queue>
+#include <stack>
+#include <functional>
 
 using namespace std;
 
@@ -42,6 +44,7 @@ int Action::handleAction() {
                 break;
             }
             case 5: { //DFS
+                //dsf(0);
                 break;
             }
             case 6: { //Export
@@ -218,6 +221,29 @@ void Action::bfsMatrix() {
                         queue.push(j + 1);
                     }
                 }
+            }
+        }
+    }
+    cout << endl;
+}
+
+void Action::dfs(int start) {
+    stack<int> stk;
+    stk.push(start);
+    int n = graph->getSize();
+    vector<bool> visited(n, false);
+    visited[start] = true;
+    cout << "Inline: ";
+    while (!stk.empty()) {
+        int current = stk.top();
+        stk.pop();
+        cout << current << " ";
+
+        vector<int> neighbors = graph->getNeighbors(current);
+        for (int neighbor : neighbors) {
+            if (!visited[neighbor]) {
+                stk.push(neighbor);
+                visited[neighbor] = true;
             }
         }
     }

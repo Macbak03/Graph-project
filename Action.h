@@ -19,6 +19,9 @@ private:
 
     void bfsList();
     void bfsMatrix();
+
+    void dfs(int start);
+
 public:
     explicit Action(Graph* graph, std::string  argument);
     int handleAction();

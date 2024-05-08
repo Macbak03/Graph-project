@@ -58,6 +58,17 @@ void Graph::handleType(const string &argument) {
     }
 }
 
+int Graph::getSize() {
+    if(type == "list"){
+        return consequentsList.size();
+    }else if(type == "table"){
+        return table.size();
+    }else if(type == "matrix"){
+        return matrix.size();
+    }
+    return 0;
+}
+
 void Graph::createGraphGenerate(int saturation) {
     int maxEdges = nodesAmount * (nodesAmount - 1) / 2;
     int numberOfEdges = maxEdges * saturation / 100;
@@ -109,6 +120,28 @@ void Graph::createTableFromMatrix() {
                 table.emplace_back(i+1, j+1);
             }
         }
+    }
+}
+
+vector<int> Graph::getNeighbors(int node) {
+    if(type == "list"){
+        return consequentsList[node];
+    }else if(type == "table"){
+        vector<int> neighbors;
+            for (auto edge : table) {
+                if (edge.first == node) {
+                    neighbors.push_back(edge.second);
+                }
+            }
+        return neighbors;
+    }else if(type == "matrix"){
+        vector<int> neighbors;
+            for (int i = 0; i < nodesAmount; ++i) {
+                if (matrix[node][i] == 1) {
+                    neighbors.push_back(i);
+                }
+            }
+        return neighbors;
     }
 }
 
