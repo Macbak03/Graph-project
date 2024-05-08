@@ -11,6 +11,8 @@ private:
     static void showHelp();
 
     void find();
+
+    void exportToTikZ();
 public:
     explicit Action(Graph* graph, std::string  argument);
     int handleAction();
