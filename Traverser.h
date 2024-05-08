@@ -1,16 +1,20 @@
-//
-// Created by MB on 08.05.2024.
-//
+#pragma once
 
-#ifndef GRAPHS_TRAVERSER_H
-#define GRAPHS_TRAVERSER_H
-
-
+#include <functional>
+#include "Graph.h"
 
 class Traverser {
+private:
+    Graph* graph;
+    static void dfs(int node, std::vector<bool>& visited, const std::function<void(int, std::vector<bool>&)>& visitNeighbor);
+public:
+    explicit Traverser(Graph* graph);
+
+    void bfsList();
+    void bfsMatrix();
+
+    void dfsList();
+    void dfsMatrix();
 
 };
 
-
-
-#endif //GRAPHS_TRAVERSER_H

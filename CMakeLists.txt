@@ -7,4 +7,10 @@ add_executable(Graphs main.cpp
         Graph.h
         Graph.cpp
         Action.h
-        Action.cpp)
+        Action.cpp
+        Print.h
+        Print.cpp
+        Traverser.h
+        Traverser.cpp
+        Sorter.h
+        Sorter.cpp)
