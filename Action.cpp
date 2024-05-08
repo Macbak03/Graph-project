@@ -5,6 +5,9 @@
 #include <iostream>
 #include <utility>
 #include <iomanip>
+#include <queue>
+#include <stack>
+#include <functional>
 
 using namespace std;
 
@@ -144,5 +147,4 @@ void Action::find() {
         cout << "Edge (" << from << "," << to << ") does not exists in the Graph!" << endl;
     }
 }
-
 
