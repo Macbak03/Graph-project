@@ -8,17 +8,9 @@ private:
 
     static int checkActionType(const std::string& action);
 
-    void showHelp();
-
-    void print();
-    void printMatrix();
-    void printList();
-    void printTable();
+    static void showHelp();
 
     void find();
-
-    void bfsList();
-    void bfsMatrix();
 public:
     explicit Action(Graph* graph, std::string  argument);
     int handleAction();

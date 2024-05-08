@@ -1,16 +1,14 @@
-//
-// Created by MB on 08.05.2024.
-//
-
-#ifndef GRAPHS_SORTER_H
-#define GRAPHS_SORTER_H
-
-
+#pragma once
+#include "Graph.h"
 
 class Sorter {
+private:
+    Graph* graph;
 
+public:
+    explicit Sorter(Graph* graph);
+
+    void kahnSort();
+    void TarjanSort();
 };
 
-
-
-#endif //GRAPHS_SORTER_H

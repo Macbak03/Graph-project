@@ -1,8 +1,10 @@
 #include "Action.h"
+#include "Print.h"
+#include "Traverser.h"
+#include "Sorter.h"
 #include <iostream>
 #include <utility>
 #include <iomanip>
-#include <queue>
 
 using namespace std;
 
@@ -26,7 +28,9 @@ int Action::handleAction() {
                 break;
             }
             case 2: { //Print
-                print();
+                auto* print = new Print(graph);
+                print->print();
+                delete print;
                 break;
             }
             case 3: { //Find
@@ -34,23 +38,38 @@ int Action::handleAction() {
                 break;
             }
             case 4: { //BFS
+                auto* traverser = new Traverser(graph);
                 if (graph->type == "list" || graph->type == "table") {
-                    bfsList();
+                    traverser->bfsList();
                 } else if (graph->type == "matrix") {
-                    bfsMatrix();
+                    traverser->bfsMatrix();
                 }
+                delete traverser;
                 break;
             }
             case 5: { //DFS
+                auto* traverser = new Traverser(graph);
+                if (graph->type == "list" || graph->type == "table") {
+                    traverser->dfsList();
+                } else if (graph->type == "matrix") {
+                    traverser->dfsMatrix();
+                }
+                delete traverser;
                 break;
             }
             case 6: { //Export
                 break;
             }
-            case 7: { //Sort
-
+            case 7: { //Kahn
+                auto* sorter = new Sorter(graph);
+                sorter->kahnSort();
+                delete sorter;
+                break;
             }
-            case 8: { //Sort2
+            case 8: { //Tarjan
+                auto* sorter = new Sorter(graph);
+                sorter->TarjanSort();
+                delete sorter;
                 break;
             }
             case 9: {
@@ -79,9 +98,9 @@ int Action::checkActionType(const std::string &action) {
         return 5;
     } else if (action == "Export") {
         return 6;
-    } else if (action == "Sort") {
+    } else if (action == "Kahn") {
         return 7;
-    } else if (action == "Sort2") {
+    } else if (action == "Tarjan") {
         return 8;
     } else if (action == "Exit") {
         return 9;
@@ -99,45 +118,9 @@ void Action::showHelp() {
     cout << setw(width) << "BFS" << "Do breath-first search\n";
     cout << setw(width) << "DFS" << "Do depth-first search\n";
     cout << setw(width) << "Export" << "Export the graph to tikzpicture\n";
-    cout << setw(width) << "Sort" << "Sort graph using Kahn's algorithm\n";
-    cout << setw(width) << "Sort2" << "Sort graph using Tarjan's algorithm\n";
+    cout << setw(width) << "Kahn" << "Sort graph using Kahn's algorithm\n";
+    cout << setw(width) << "Tarjan" << "Sort graph using Tarjan's algorithm\n";
     cout << setw(width) << "Exit" << "Exits the program\n";
-}
-
-void Action::print() {
-    if (graph->type == "list") {
-        printList();
-    } else if (graph->type == "matrix") {
-        printMatrix();
-    } else if (graph->type == "table") {
-        printTable();
-    }
-}
-
-void Action::printMatrix() {
-    for (const auto &row: *graph->getMatrix()) {
-        for (int elem: row) {
-            std::cout << elem << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-void Action::printList() {
-    vector<vector<int>> list = *graph->getList();
-    for (int i = 0; i < list.size(); i++) {
-        cout << i + 1 << " - ";
-        for (int j: list[i]) {
-            cout << j << " ";
-        }
-        cout << endl;
-    }
-}
-
-void Action::printTable() {
-    for (auto &edge: *graph->getTable()) {
-        cout << "(" << edge.first << ", " << edge.second << ")" << endl;
-    }
 }
 
 void Action::find() {
@@ -162,64 +145,4 @@ void Action::find() {
     }
 }
 
-void Action::bfsList() {
-    vector<vector<int>> list = *graph->getList();
-    vector<bool> visited(list.size(), false);
-    queue<int> queue;
 
-    cout << "Inline: ";
-
-    for (int i = 0; i < visited.size(); i++) {
-        if (!visited[i]) {
-            visited[i] = true;
-            queue.push(i + 1);
-
-            while (!queue.empty()) {
-                int current = queue.front();
-                queue.pop();
-
-                cout << current << " ";
-
-                for (int next: list[current - 1]) {
-                    if (!visited[next - 1]) {
-                        visited[next - 1] = true;
-                        queue.push(next);
-                    }
-                }
-            }
-        }
-    }
-    cout << endl;
-}
-
-void Action::bfsMatrix() {
-    vector<vector<int>> matrix = *graph->getMatrix();
-    int n = matrix.size();
-    vector<bool> visited(n, false);
-    queue<int> queue;
-
-    cout << "Inline: ";
-
-    for (int i = 0; i < visited.size(); i++) {
-        if (!visited[i]) {
-            visited[i] = true;
-            queue.push(i + 1);
-
-            while (!queue.empty()) {
-                int current = queue.front();
-                queue.pop();
-
-                cout << current << " ";
-
-                for (int j = 0; j < n; ++j) {
-                    if (matrix[current - 1][j] == 1 &&
-                        !visited[j]) {
-                        visited[j] = true;
-                        queue.push(j + 1);
-                    }
-                }
-            }
-        }
-    }
-    cout << endl;
-}
