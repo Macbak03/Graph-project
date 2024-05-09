@@ -42,9 +42,9 @@ int Action::handleAction() {
             }
             case 4: { //BFS
                 auto* traverser = new Traverser(graph);
-                if (graph->type == "list" || graph->type == "table") {
+                if (graph->type == Graph::typeList || graph->type == Graph::typeTable) {
                     traverser->bfsList();
-                } else if (graph->type == "matrix") {
+                } else if (graph->type == Graph::typeMatrix) {
                     traverser->bfsMatrix();
                 }
                 delete traverser;
@@ -52,9 +52,9 @@ int Action::handleAction() {
             }
             case 5: { //DFS
                 auto* traverser = new Traverser(graph);
-                if (graph->type == "list" || graph->type == "table") {
+                if (graph->type == Graph::typeList || graph->type == Graph::typeTable) {
                     traverser->dfsList();
-                } else if (graph->type == "matrix") {
+                } else if (graph->type == Graph::typeMatrix) {
                     traverser->dfsMatrix();
                 }
                 delete traverser;

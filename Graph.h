@@ -20,6 +20,11 @@ public:
     const static std::string argumentUser;
     const static std::string argumentGenerated;
 
+    const static std::string typeList;
+    const static std::string typeMatrix;
+    const static std::string typeTable;
+
+
     explicit Graph(const std::string& argument);
     void handleType(const std::string &argument);
 

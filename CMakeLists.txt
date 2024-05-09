@@ -13,4 +13,6 @@ add_executable(Graphs main.cpp
         Traverser.h
         Traverser.cpp
         Sorter.h
-        Sorter.cpp)
+        Sorter.cpp
+        InvalidDataException.h
+        InvalidDataException.cpp)

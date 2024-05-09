@@ -1,16 +1,23 @@
 #include "Graph.h"
+#include "InvalidDataException.h"
 #include <iostream>
 #include <sstream>
 
 using namespace std;
 
 
-const std::string Graph::argumentUser = "--user-provided";
-const std::string Graph::argumentGenerated = "--generate";
+const string Graph::argumentUser = "--user-provided";
+const string Graph::argumentGenerated = "--generate";
+const string Graph::typeList = "list";
+const string Graph::typeMatrix = "matrix";
+const string Graph::typeTable = "table";
 
 Graph::Graph(const string &argument) {
     cout<<"type>";
     cin>>type;
+    if(type != typeList && type != typeMatrix && type != typeTable){
+        throw InvalidDataException("Invalid graph type. Correct types are: list, matrix, table");
+    }
     cout << "nodes>";
     cin >> nodesAmount;
     cin.ignore();
@@ -25,6 +32,9 @@ Graph::Graph(const string &argument) {
         cout << "saturation>";
         int saturation;
         cin>>saturation;
+        if(saturation < 1 || saturation > 100){
+            throw InvalidDataException("saturation must be in range (0, 100>");
+        }
         createGraphGenerate(saturation);
     }
     handleType(argument);
@@ -38,11 +48,15 @@ void Graph::createGraphUser() {
         getline(std::cin, line);
         istringstream iss(line);
         int successor;
+        int tmp = 0;
         while (iss >> successor) {
             if (successor < 1 || successor > nodesAmount) {
-                cout << "Invalid node value\n";
-                return;
+                throw InvalidDataException("Invalid node value");
             }
+            if(successor < tmp){
+                throw InvalidDataException("Nodes must be in ascending order");
+            }
+            tmp = successor;
             consequentsList[i].push_back(successor);
         }
     }

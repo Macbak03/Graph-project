@@ -6,11 +6,11 @@ using namespace std;
 Print::Print(Graph *graph) : graph(graph){}
 
 void Print::print() {
-    if (graph->type == "list") {
+    if (graph->type == Graph::typeList) {
         printList();
-    } else if (graph->type == "matrix") {
+    } else if (graph->type == Graph::typeMatrix) {
         printMatrix();
-    } else if (graph->type == "table") {
+    } else if (graph->type == Graph::typeTable) {
         printTable();
     }
 }
