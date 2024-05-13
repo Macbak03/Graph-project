@@ -5,18 +5,29 @@
 
 using namespace std;
 
-int main() {
-    Graph* graphUser;
-    try{
-        graphUser = new Graph(Graph::argumentUser);
-    } catch (InvalidDataException& exception){
-        cerr<<exception.what();
+int main(int argc, char *argv[]) {
+    Graph *graph;
+    if (argc == 2 && string(argv[1]) == Graph::argumentUser) {
+        try {
+            graph = new Graph(Graph::argumentUser);
+        } catch (InvalidDataException &exception) {
+            cerr << exception.what()<<endl;
+            return 1;
+        }
+    } else if (argc == 2 && string(argv[1]) == Graph::argumentGenerated) {
+        try {
+            graph = new Graph(Graph::argumentGenerated);
+        } catch (InvalidDataException &exception) {
+            cerr << exception.what()<<endl;
+            return 1;
+        }
+    } else{
+        cerr << "Invalid argument";
         return 1;
     }
 
-    Action action(graphUser, Graph::argumentUser);
-    //Graph graphGenerated(Graph::argumentGenerated);
-    //Action action(&graphGenerated, Graph::argumentGenerated);
+
+    Action action(graph, argv[1]);
     action.handleAction();
 
     return 0;

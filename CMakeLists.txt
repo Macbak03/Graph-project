@@ -15,4 +15,8 @@ add_executable(Graphs main.cpp
         Sorter.h
         Sorter.cpp
         InvalidDataException.h
-        InvalidDataException.cpp)
+        InvalidDataException.cpp
+        KahnSort.h
+        KahnSort.cpp
+        TarjanSort.h
+        TarjanSort.cpp)

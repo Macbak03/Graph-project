@@ -5,19 +5,10 @@
 #include "Graph.h"
 
 class Sorter {
-private:
+protected:
     Graph* graph;
-    std::string argument;
-    enum NodeState{UNMARKED, TEMPORARY, PERMANENT};
-    std::vector<NodeState> states;
-
-    bool visit(int n, std::stack<int>& stack, std::vector<std::vector<int>> consequentsList);
-
-
+    int nodesAmount;
 public:
     explicit Sorter(Graph* graph);
-
-    void kahnSort();
-    void TarjanSort();
 };
 

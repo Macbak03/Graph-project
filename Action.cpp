@@ -1,7 +1,8 @@
 #include "Action.h"
 #include "Print.h"
 #include "Traverser.h"
-#include "Sorter.h"
+#include "KahnSort.h"
+#include "TarjanSort.h"
 #include <iostream>
 #include <utility>
 #include <iomanip>
@@ -42,20 +43,24 @@ int Action::handleAction() {
             }
             case 4: { //BFS
                 auto* traverser = new Traverser(graph);
-                if (graph->type == Graph::typeList || graph->type == Graph::typeTable) {
+                if (graph->type == Graph::typeList) {
                     traverser->bfsList();
                 } else if (graph->type == Graph::typeMatrix) {
                     traverser->bfsMatrix();
+                } else{
+                    traverser->bfsTable();
                 }
                 delete traverser;
                 break;
             }
             case 5: { //DFS
                 auto* traverser = new Traverser(graph);
-                if (graph->type == Graph::typeList || graph->type == Graph::typeTable) {
+                if (graph->type == Graph::typeList) {
                     traverser->dfsList();
                 } else if (graph->type == Graph::typeMatrix) {
                     traverser->dfsMatrix();
+                } else{
+                    traverser->dfsTable();
                 }
                 delete traverser;
                 break;
@@ -65,15 +70,27 @@ int Action::handleAction() {
                 break;
             }
             case 7: { //Kahn
-                auto* sorter = new Sorter(graph);
-                sorter->kahnSort();
-                delete sorter;
+                auto* kahnSort = new KahnSort(graph);
+                if(graph->type == Graph::typeMatrix){
+                    kahnSort->kahnSortMatrix();
+                } else if (graph->type == Graph::typeList){
+                    kahnSort->kahnSortList();
+                } else{
+                    kahnSort->kahnSortTable();
+                }
+                delete kahnSort;
                 break;
             }
             case 8: { //Tarjan
-                auto* sorter = new Sorter(graph);
-                sorter->TarjanSort();
-                delete sorter;
+                auto* tarjanSort = new TarjanSort(graph);
+                if(graph->type == Graph::typeMatrix){
+                    tarjanSort->tarjanSortMatrix();
+                } else if (graph->type == Graph::typeList){
+                    tarjanSort->tarjanSortList();
+                } else{
+                    tarjanSort->tarjanSortTable();
+                }
+                delete tarjanSort;
                 break;
             }
             case 9: {
